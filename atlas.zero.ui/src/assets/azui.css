@@ -15,3 +15,44 @@ body {
 .progress {
 	margin: 10px;
 }
+
+.scoreBoard {
+	width: 100%;
+	font-weight: 700!important;
+	text-align: center!important;
+	font-size: x-large;	
+}
+
+.scoreBoard p {
+	margin: 0 !important;
+}
+
+.currentTurn {
+	background: blueviolet;
+	border-radius: .25rem!important;
+	padding: 5px;
+}
+
+.accepts {
+	color: #5aa7f9;
+}
+
+.waits {
+	color: #adbece;
+}
+
+.rejects {
+	color: #ffc107;
+}
+
+.penalty {
+	color: red;
+}
+
+.penalty-inactive {
+	color: white !important;
+}
+
+.score {
+	color: yellowgreen;
+}
