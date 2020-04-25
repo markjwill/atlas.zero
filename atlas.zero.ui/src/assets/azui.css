@@ -2,7 +2,12 @@
 body {
 	background: navy;
 }
-
+small {
+	font-size: 60%;
+}
+button {
+	font-size: 9px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,6 +15,10 @@ body {
   text-align: center;
   color: aliceblue;
   margin-top: 20px;
+}
+
+.not-clicked {
+	background: #6c757d;
 }
 
 .progress {

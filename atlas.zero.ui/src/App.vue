@@ -9,7 +9,7 @@
         :aria-valuenow="currentTurnConverted" 
         aria-valuemin="0" 
         aria-valuemax="100">
-          Turn {{ currentTurn }} of 20
+          t# {{ uiTurn }} of 20
       </div>
     </div>
       <div>
@@ -17,127 +17,175 @@
     <b-row>
       <b-col>
         <b-row>
-          <b-button class="m-1" size="lg" variant="primary">accept<br><small>keyboard [ a ]</small></b-button>
-          <b-button class="m-1" size="lg" variant="secondary">wait<br><small>keyboard [ s ]</small></b-button>
-          <b-button class="m-1" size="lg" variant="warning">reject<br><small>keyboard [ d ]</small></b-button>
+          <b-col>
+            <b-button 
+                class="m-1" 
+                size="lg" 
+                variant="primary" 
+                :pressed.sync="ui.player.accept">
+              accept<br>
+              <small>keyboard [ a ]</small>
+            </b-button>
+            <b-button 
+                class="m-1" 
+                size="lg" 
+                variant="secondary"
+                :pressed.sync="ui.player.wait">
+              wait<br>
+              <small>keyboard [ s ]</small>
+            </b-button>
+            <b-button 
+                class="m-1" 
+                size="lg" 
+                variant="warning"
+                :pressed.sync="ui.player.reject">
+              reject<br>
+              <small>keyboard [ d ]</small>
+            </b-button>
+          </b-col>
+          <b-col cols="1"></b-col>
+          <b-col>
+            <b-row>
+              <b-button 
+                  class="m-1" 
+                  size="lg" 
+                  variant="primary"
+                  :pressed.sync="ui.opponent.accept">
+                accept<br>
+                <small>keyboard [ j ]</small></b-button>
+              <b-button 
+                  class="m-1" 
+                  size="lg" 
+                  variant="secondary"
+                  :pressed.sync="ui.opponent.wait">
+                wait<br>
+                <small>keyboard [ k ]</small>
+              </b-button>
+              <b-button 
+                  class="m-1" 
+                  size="lg" 
+                  variant="warning"
+                  :pressed.sync="ui.opponent.reject">
+                reject<br>
+                <small>keyboard [ l ]</small>
+              </b-button>
+            </b-row>
+          </b-col>
         </b-row>
         <b-row>
-          <div class="scoreBoard">
-            <p>
-              <span class="turns">  
-                t &nbsp;
-              </span>
-              <span class="accepts">
-                a
-              </span>
-              &nbsp;
-              <span class="waits">
-                w
-              </span>
-              &nbsp;
-              <span class="rejects">
-                r
-              </span>
-              &nbsp;
-              <span class="penalty">
-                p
-              </span>
-              &nbsp;
-              <span class="score">
-                s
-              </span>
-            </p>
-            <p v-for="i in 20" v-bind:key="i" 
-                :class="{ 'currentTurn' : (i-1) == currentTurn }">
-              <span class="turns">  
-                {{ i | leftPad }} &nbsp;
-              </span>
-              <span class="accepts">
-                {{ playerTurns.accepts[i-1] }}
-              </span>
-              &nbsp;
-              <span class="waits">
-                {{ playerTurns.waits[i-1] }}
-              </span>
-              &nbsp;
-              <span class="rejects">
-                {{ playerTurns.rejects[i-1] }}
-              </span>
-              &nbsp;
-              <span class="penalty">
-              <span :class="{ 'penalty-inactive': 1 == playerTurns.fractionalMultiple[i-1] }">
-                {{ playerTurns.fractionalMultiple[i-1] | rightPad }}
-              </span>
-              </span>
-              &nbsp;
-              <span class="score">
-                {{ playerTurns.cumulativeScore[i-1] }}
-              </span>
-            </p>
-          </div>
-        </b-row>
-      </b-col>
-      <b-col cols="1"></b-col>
-      <b-col>
-        <b-row>
-          <b-button class="m-1" size="lg" variant="primary">accept<br><small>keyboard [ j ]</small></b-button>
-          <b-button class="m-1" size="lg" variant="secondary">wait<br><small>keyboard [ k ]</small></b-button>
-          <b-button class="m-1" size="lg" variant="warning">reject<br><small>keyboard [ l ]</small></b-button>
-        </b-row>
-        <b-row>
-          <div class="scoreBoard">
-            <p>
-              <span class="turns">  
-                t &nbsp;
-              </span>
-              <span class="accepts">
-                a
-              </span>
-              &nbsp;
-              <span class="waits">
-                w
-              </span>
-              &nbsp;
-              <span class="rejects">
-                r
-              </span>
-              &nbsp;
-              <span class="penalty">
-                p
-              </span>
-              &nbsp;
-              <span class="score">
-                s
-              </span>
-            </p>
-            <p v-for="i in 20" v-bind:key="i" 
-                :class="{ 'currentTurn' : (i-1) == currentTurn }">
-              <span class="turns">  
-                {{ i | leftPad }} &nbsp;
-              </span>
-              <span class="accepts">
-                {{ opponentTurns.accepts[i-1] }}
-              </span>
-              &nbsp;
-              <span class="waits">
-                {{ opponentTurns.waits[i-1] }}
-              </span>
-              &nbsp;
-              <span class="rejects">
-                {{ opponentTurns.rejects[i-1] }}
-              </span>
-              &nbsp;
-              <span class="penalty">
-              <span :class="{ 'penalty-inactive': 1 == opponentTurns.fractionalMultiple[i-1] }">
-                {{ opponentTurns.fractionalMultiple[i-1] | rightPad }}
-              </span>
-              </span>
-              &nbsp;
-              <span class="score">
-                {{ opponentTurns.cumulativeScore[i-1] }}
-              </span>
-            </p>
-          </div>
+          <b-col>
+            <div class="scoreBoard">
+              <p>
+                <span class="accepts">
+                  a
+                </span>
+                &nbsp;
+                <span class="waits">
+                  w
+                </span>
+                &nbsp;
+                <span class="rejects">
+                  r
+                </span>
+                &nbsp;
+                <span class="penalty">
+                  p
+                </span>
+                &nbsp;
+                <span class="score">
+                  s
+                </span>
+              </p>
+              <p v-for="i in 20" v-bind:key="i" 
+                  :class="{ 'currentTurn' : (i) == uiTurn }">
+                <span class="accepts">
+                  {{ turn.playerTurns.accepts[i-1] }}
+                </span>
+                &nbsp;
+                <span class="waits">
+                  {{ turn.playerTurns.waits[i-1] }}
+                </span>
+                &nbsp;
+                <span class="rejects">
+                  {{ turn.playerTurns.rejects[i-1] }}
+                </span>
+                &nbsp;
+                <span class="penalty">
+                <span :class="{ 'penalty-inactive': 1 == turn.playerTurns.fractionalMultiple[i-1] }">
+                  {{ turn.playerTurns.fractionalMultiple[i-1] | rightPad }}
+                </span>
+                </span>
+                &nbsp;
+                <span class="score">
+                  {{ turn.playerTurns.cumulativeScore[i-1] }}
+                </span>
+              </p>
+            </div>
+          </b-col>
+          <b-col cols="1">
+            <div class="scoreBoard">
+              <p>
+                <span class="turns">  
+                  t#
+                </span>
+              </p>
+              <p v-for="i in 20" v-bind:key="i" 
+                    :class="{ 'currentTurn' : (i) == uiTurn }">
+                <span class="turns">  
+                  {{ i | leftPad }} &nbsp;
+                </span>
+              </p>
+            </div>
+          </b-col>
+          <b-col>
+            <div class="scoreBoard">
+              <p>
+                <span class="accepts">
+                  a
+                </span>
+                &nbsp;
+                <span class="waits">
+                  w
+                </span>
+                &nbsp;
+                <span class="rejects">
+                  r
+                </span>
+                &nbsp;
+                <span class="penalty">
+                  p
+                </span>
+                &nbsp;
+                <span class="score">
+                  s
+                </span>
+              </p>
+              <p v-for="i in 20" v-bind:key="i" 
+                  :class="{ 'currentTurn' : (i) == uiTurn }">
+                <span class="accepts">
+                  {{ turn.opponentTurns.accepts[i-1] }}
+                </span>
+                &nbsp;
+                <span class="waits">
+                  {{ turn.opponentTurns.waits[i-1] }}
+                </span>
+                &nbsp;
+                <span class="rejects">
+                  {{ turn.opponentTurns.rejects[i-1] }}
+                </span>
+                &nbsp;
+                <span class="penalty">
+                <span :class="{ 'penalty-inactive': 1 == turn.opponentTurns.fractionalMultiple[i-1] }">
+                  {{ turn.opponentTurns.fractionalMultiple[i-1] | rightPad }}
+                </span>
+                </span>
+                &nbsp;
+                <span class="score">
+                  {{ turn.opponentTurns.cumulativeScore[i-1] }}
+                </span>
+              </p>
+            </div>
+          </b-col>
         </b-row>
       </b-col>
     </b-row>
@@ -147,66 +195,107 @@
 </template>
 
 <script>
+import axios from "axios";  
+
 export default {
   name: 'App',
   data: function() {
     return {
-      gameId: 15865713850000,
-      playerType: "human",
-      playerTurns: {
-        accepts: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        waits: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        rejects: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        fractionalMultiple: [
-          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-        ],
-        cumulativeScore: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        totalScore: 0,
-        offers: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ]
+      ui: {
+        player: {
+          accept: false,
+          wait: false,
+          reject: false, 
+        },
+        opponent: {
+          accept: false,
+          wait: false,
+          reject: false, 
+        },
+        hundreth: 0,
+        timerInterval: null,       
       },
-      oponnentType: "human",
-      opponentTurns: {
-        accepts: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        waits: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        rejects: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        fractionalMultiple: [
-          1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
-        ],
-        cumulativeScore: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ],
-        totalScore: 0,
-        offers: [
-          0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-        ]
-      },
-      state: 1,
-      currentTurn: 0,
-      winner: -1
+      turn: {
+        gameId: 15865713850000,
+        playerType: "human",
+        playerTurns: {
+          accepts: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          waits: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          rejects: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          fractionalMultiple: [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ],
+          cumulativeScore: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          totalScore: 0,
+          offers: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ]
+        },
+        oponnentType: "human",
+        opponentTurns: {
+          accepts: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          waits: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          rejects: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          fractionalMultiple: [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ],
+          cumulativeScore: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ],
+          totalScore: 0,
+          offers: [
+            0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+          ]
+        },
+        state: 1,
+        currentTurn: -1,
+        winner: -1
+      }
     };
+  },
+  methods: {
+    sendTurnData: function (){
+      axios.post("https://jsonplaceholder.typicode.com/todos/", this.data.turn)
+        .then(response => {
+           this.todosList = [...response.data].slice(0, 10)
+        })
+    },
+    startTurnsTimer() {
+      this.timerInterval = setInterval(this.updateTime, 200);
+    },
+    updateTime: function() {
+      this.ui.hundreth += 1;
+      if (this.ui.hundreth % 5 == 0) {
+        this.turn.currentTurn +=1;
+      }
+      if (this.ui.hundreth == 100){
+        clearInterval(this.timerInterval);
+      }
+    }
   },
   computed:{
     currentTurnStyleFormatted: function () {
-      return "width: "+this.currentTurnConverted+"%";
+      return "width: "+this.ui.hundreth+"%";
+    },
+    uiTurn: function () {
+      return this.turn.currentTurn + 1;
     },
     currentTurnConverted: function () {
-      return this.currentTurn * 5;
+      return (this.uiTurn) * 5;
     }
   },
   filters: {
