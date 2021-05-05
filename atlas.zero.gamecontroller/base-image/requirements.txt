@@ -1,0 +1,6 @@
+flask
+flask-cors
+requests
+flask-sqlalchemy
+psycopg2
+random2

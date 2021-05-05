@@ -1,0 +1,69 @@
+<html>
+    <head>
+	<title>Current Game Turns from db</title>
+    </head>
+    <body>
+	<h3>
+	    <a href="{{ url_for('home') }}">Current Game Turns from db</a>
+	</h3>
+
+
+	<table>
+	    <thead>
+		<tr>
+			<th>id</th>
+			<th>gameId</th>
+			<th>playerType</th>
+			<th>playerTurns_accepts</th>
+			<th>playerTurns_waits</th>
+			<th>playerTurns_rejects</th>
+			<th>playerTurns_fractionalMultiple</th>
+			<th>playerTurns_currentScore</th>
+			<th>playerTurns_totalScore</th>
+			<th>playerTurns_offers</th>
+			<th>oponnentType</th>
+			<th>opponentTurns_accepts</th>
+			<th>opponentTurns_waits</th>
+			<th>opponentTurns_rejects</th>
+			<th>opponentTurns_fractionalMultiple</th>
+			<th>opponentTurns_currentScore</th>
+			<th>opponentTurns_totalScore</th>
+			<th>opponentTurns_offers</th>
+			<th>state</th>
+			<th>currentTurn</th>
+			<th>winner</th>
+		</tr>
+	    </thead>
+
+	    <tbody>
+	    {% for turn in turns %}
+		<tr>
+			<th>{{ turn.id }}</th>
+			<th>{{ turn.gameId }}</th>
+			<th>{{ turn.playerType }}</th>
+			<th>{{ turn.playerTurns_accepts }}</th>
+			<th>{{ turn.playerTurns_waits }}</th>
+			<th>{{ turn.playerTurns_rejects }}</th>
+			<th>{{ turn.playerTurns_fractionalMultiple }}</th>
+			<th>{{ turn.playerTurns_currentScore }}</th>
+			<th>{{ turn.playerTurns_totalScore }}</th>
+			<th>{{ turn.playerTurns_offers }}</th>
+			<th>{{ turn.oponnentType }}</th>
+			<th>{{ turn.opponentTurns_accepts }}</th>
+			<th>{{ turn.opponentTurns_waits }}</th>
+			<th>{{ turn.opponentTurns_rejects }}</th>
+			<th>{{ turn.opponentTurns_fractionalMultiple }}</th>
+			<th>{{ turn.opponentTurns_currentScore }}</th>
+			<th>{{ turn.opponentTurns_totalScore }}</th>
+			<th>{{ turn.opponentTurns_offers }}</th>
+			<th>{{ turn.state }}</th>
+			<th>{{ turn.currentTurn }}</th>
+			<th>{{ turn.winner }}</th>
+		</tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+
+
+    </body>
+</html>

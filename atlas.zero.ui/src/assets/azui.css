@@ -17,6 +17,28 @@ button {
   margin-top: 20px;
 }
 
+.winner {
+	background: yellowgreen !important;
+	color: white !important;
+	border-radius: 130px;
+    padding: 20px 40px;
+}
+.currentPlayerOffer {
+	font-weight: 700!important;
+    text-align: center!important;
+    font-size: xxx-large;
+    top: 5vh;
+    left: 15vw;
+    position: absolute;
+}
+.currentOpponentOffer {
+	font-weight: 700!important;
+    text-align: center!important;
+    font-size: xxx-large;
+    top: 5vh;
+    right: 15vw;
+    position: absolute;
+}
 .not-clicked {
 	background: #6c757d;
 }
