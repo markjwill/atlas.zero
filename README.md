@@ -1,6 +1,8 @@
 # Atlas.zero
 ### A machine learning exercise
 
+<img width="1165" alt="Screen Shot 2021-05-05 at 11 53 55 AM" src="https://user-images.githubusercontent.com/4855168/124188840-68483400-da85-11eb-9eac-fa50e3578b52.png">
+
 This exercise has the following components
 
  1. A python game controller
